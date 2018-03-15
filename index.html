@@ -1,0 +1,71 @@
+<!DOCTYPE>
+<html>
+
+<head>
+
+
+    <title>Train Station</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width-device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="assets/reset.css">
+    <link rel="stylesheet" type="text/css" href="assets/style.css">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/4.11.0/firebase.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="column-1">
+            </div>
+        </div>
+        <div class="column-10">
+            <div class="jumbotron box">
+                <h1>It's Train Time</h1>
+                <br>
+                <h2>Choo Chugga Chugga</h2>
+
+            </div>
+        </div>
+        <div class="column-1"></div>
+    </div>
+
+    <label for="text">Name:</label>
+    <input type="text" id="nameinput">
+    <button id="clickButton" type="submit">Submit</button>
+
+    <h1 id="display"></h1>
+
+    <script>
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyCjZDabshfeTO_I1E-cLPfARn9mBwvfUWE",
+            authDomain: "project-1-15b2d.firebaseapp.com",
+            databaseURL: "https://project-1-15b2d.firebaseio.com",
+            projectId: "project-1-15b2d",
+            storageBucket: "project-1-15b2d.appspot.com",
+            messagingSenderId: "235621572292"
+        };
+        firebase.initializeApp(config);
+        //create a variable to reference the database
+        var database = firebase.database();
+        var name = "";
+
+        $("#clickButton").on("click", function () {
+            name = $("#nameinput").val().trim();
+
+            database.ref().set({
+                name: name
+            });
+            $("#display").html(name)
+            return false;
+        });
+        database.ref().on("value", function (snap) {
+            $("#display").html(snap.val().name);
+        });
+    </script>
+</body>
+
+</html>
